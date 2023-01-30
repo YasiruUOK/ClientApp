@@ -1,14 +1,14 @@
 <section class="vh-100" style="background-color: #eee;">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-lg-12 col-xl-11">
-          <div class="card text-black" style="border-radius: 25px;">
-            <div class="card-body p-md-5">
-              <div class="row justify-content-center">
-                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-  
-                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-                  <!--<form [formGroup]="userProfileForm" (submit)="updateUserProfile()">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                <!--<form [formGroup]="userProfileForm" (submit)="updateUserProfile()">
                     <div class="form-group">
                       <label for="first_name">First Name</label>
                       <input type="text"
@@ -23,62 +23,45 @@
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                   </form>-->
-                  <form class="mx-1 mx-md-4" [formGroup]="loginForm" (submit)="RegisterUser()">
-  
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                      <div class="form-outline flex-fill mb-0">
-                        <input type="text" id="form3Example1c" class="form-control" formControlName="username"/>
-                        <label class="form-label" for="form3Example1c">Your Name</label>
+                <form class="mx-1 mx-md-4" [formGroup]="loginForm" (submit)="RegisterUser()">
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="text" id="userName" class="form-control" formControlName="userName"/>
+                      <label class="form-label" for="form3Example1c">Your Name</label>
+                      <div *ngIf="
+                      userName.invalid &&
+                          (userName.dirty || userName.touched)
+                        " class="form-text text-danger">
+                      <div *ngIf="userName.errors?.['required']">
+                        Field is required
+                      </div>
                       </div>
                     </div>
-  
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                      <div class="form-outline flex-fill mb-0">
-                        <input type="email" [formControl]="email" id="form3Example3c" class="form-control" formControlName="email" />
-                        <label class="form-label" for="form3Example3c">Your Email</label>
-                        <div *ngIf="email.invalid && email.touched" class="error">
-                          <div *ngIf="email.errors?.email" style="color: red;">Please enter a valid email</div>
-                        </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="email" id="email" class="form-control"
+                        formControlName="email"/>
+                      <label class="form-label" for="form3Example3c">Your Email</label>
+                      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="form-text text-danger">
+                        <div *ngIf="email.errors?.['required']">Field is required</div>
+                        <div *ngIf="email.errors?.email || email.errors?.['pattern']">Please enter a valid email</div>
                       </div>
                     </div>
-  
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                      <div class="form-outline flex-fill mb-0">
-                        <input type="password" id="form3Example4c" class="form-control" formControlName="password"/>
-                        <label class="form-label" for="form3Example4c">Password</label>
-                      </div>
-                    </div>
-  
-                    <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                      <div class="form-outline flex-fill mb-0">
-                        <input type="password" id="form3Example4cd" class="form-control" formControlName="confirmpassword" />
-                        <label class="form-label" for="form3Example4cd">Repeat your password</label>
-                      </div>
-                    </div>
-  
-                    <div class="mb-3">
-                      <label for="newPassword">New password: </label>
-                      <input
-                        id="newPassword"
-                        type="password"
-                        class="form-control"
-                        formControlName="newPassword"
-                        #pw
-                      />
-                      <div
-                        *ngIf="
-                          newPassword.invalid &&
-                          (newPassword.dirty || newPassword.touched)
-                        "
-                        class="form-text text-danger"
-                      >
-                        <div *ngIf="newPassword.errors?.['required']">
-                          Field is required
-                        </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="password" id="newPassword" class="form-control" formControlName="newPassword" #pw />
+                      <label class="form-label" for="form3Example4c">Password</label>
+                      <div *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)"
+                        class="form-text text-danger">
+                        <div *ngIf="newPassword.errors?.['required']">Field is required</div>
                         <div *ngIf="newPassword.errors?.['pattern']">
                           Password must contain at least one number, one uppercase and a
                           lowercase letter and at least 8 characters<br />Password cannot
@@ -86,69 +69,65 @@
                         </div>
                       </div>
                     </div>
-                    <div class="mb-3">
-                      <label for="confirmPassword">New password (confirmation):</label>
-                      <input
-                        id="confirmPassword"
-                        type="password"
-                        class="form-control"
-                        [ngClass]="confirmPasswordClass"
-                        formControlName="confirmPassword"
-                        #cpw
-                      />
-                      <div
-                        *ngIf="
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="password" id="confirmPassword" class="form-control"
+                      [ngClass]="confirmPasswordClass"
+                      formControlName="confirmPassword" #cpw/>
+                      <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                      <div *ngIf="
                           confirmPassword.invalid &&
                           (confirmPassword.dirty || confirmPassword.touched)
-                        "
-                        class="form-text text-danger"
-                      >
-                        <div *ngIf="confirmPassword.errors?.['required']">
-                          Field is required
-                        </div>
-                        <div *ngIf="confirmPassword.errors?.['pattern']">
-                          Password must contain at least one number, one uppercase and a
-                          lowercase letter and at least 8 characters<br />Password cannot
-                          contain whitespace
-                        </div>
-                        <div *ngIf="confirmPassword.errors?.['confirmedValidator']">
-                          Passwords did not match
-                        </div>
+                        " class="form-text text-danger">
+                      <div *ngIf="confirmPassword.errors?.['required']">
+                        Field is required
+                      </div>
+                      <div *ngIf="confirmPassword.errors?.['pattern']">
+                        Password must contain at least one number, one uppercase and a
+                        lowercase letter and at least 8 characters<br />Password cannot
+                        contain whitespace
+                      </div>
+                      <div *ngIf="confirmPassword.errors?.['confirmedValidator']">
+                        Passwords did not match
                       </div>
                     </div>
-                    <button
-              type="submit"
-              [disabled]="loginForm.invalid"
-              class="btn btn-dark col-5 mx-auto"
-            >
-              Reset password
-            </button>
-
-
-                    <div class="form-check d-flex justify-content-center mb-5">
-                      <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" formControlName="agreeCheckbox" />
-                      <label class="form-check-label" for="form2Example3">
-                        I agree all statements in <a href="#!">Terms of service</a>
-                      </label>
                     </div>
-  
-                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button type="submit" class="btn btn-primary btn-lg" [disabled]="!loginForm.valid">Register</button>
-                    </div>
-  
-                  </form>
-  
-                </div>
-                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-  
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                    class="img-fluid" alt="Sample image">
-  
-                </div>
+                  </div>
+
+                  <div class="form-check d-flex justify-content-center mb-5">
+                    <input class="form-check-input me-2" type="checkbox" id="agreeCheckbox" formControlName="agreed"/>
+                    <label class="form-check-label" for="form2Example3">
+                      I agree all statements in <a href="#!">Terms of service</a>
+                    </label>
+                    <div *ngIf="agreeCheckbox.invalid && value === 'True' &&
+                          (agreeCheckbox.dirty || agreeCheckbox.touched)
+                        " class="form-text text-danger">
+                      <div *ngIf="agreeCheckbox.errors?.['required']">
+                        Field is required
+                      </div>
+                      </div>
+                  </div>
+
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" class="btn btn-primary btn-lg" [disabled]="loginForm.invalid || !loginForm.value.agreed" >Register</button>
+                  </div>
+
+                </form>
+
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid" alt="Sample image">
+
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>

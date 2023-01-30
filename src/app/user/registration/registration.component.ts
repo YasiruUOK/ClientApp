@@ -11,8 +11,9 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators  } fro
 export class RegistrationComponent implements OnInit {
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) { }
-
-  email = new FormControl('', [Validators.email]);
+  value!: string;
+  //email = new FormControl('', [Validators.email]);
+  //userName = new FormControl('', [Validators.userName]);
   passwordsMatching = false;
   isConfirmPasswordDirty = false;
   confirmPasswordClass = 'form-control';
@@ -28,11 +29,25 @@ export class RegistrationComponent implements OnInit {
       /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
     ),
   ]);
-
+  userName = new FormControl(null, [
+    (c: AbstractControl) => Validators.required(c)
+  ]);
+  email = new FormControl(null, [
+    (c: AbstractControl) => Validators.required(c),
+    //Validators.email,
+    Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
+  ]);
+  agreeCheckbox = new FormControl(null, [
+    (c: AbstractControl) => Validators.required(c)
+  ]);
+  
   loginForm = this.formBuilder.group(
     {
       newPassword: this.newPassword,
       confirmPassword: this.confirmPassword,
+      userName:this.userName,
+      email:this.email,
+      agreed: new FormControl(false),
     },
     {
       validator: this.ConfirmedValidator('newPassword', 'confirmPassword'),
